@@ -1,0 +1,143 @@
+{
+  "ver": "2.3.8",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "342bfa02-ee14-4e9e-af65-74152fadb1b6",
+  "files": [],
+  "subMetas": {
+    "40586": {
+      "importer": "gltf-embeded-image",
+      "uuid": "342bfa02-ee14-4e9e-af65-74152fadb1b6@40586",
+      "displayName": "",
+      "id": "40586",
+      "name": "UnnamedImage.image",
+      "userData": {
+        "gltfIndex": 0,
+        "fixAlphaTransparencyArtifacts": true,
+        "hasAlpha": false,
+        "type": "texture"
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".json",
+        ".png"
+      ],
+      "subMetas": {}
+    },
+    "4f4f4": {
+      "importer": "gltf-mesh",
+      "uuid": "342bfa02-ee14-4e9e-af65-74152fadb1b6@4f4f4",
+      "displayName": "",
+      "id": "4f4f4",
+      "name": "Object_0.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 224
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e39f7": {
+      "importer": "texture",
+      "uuid": "342bfa02-ee14-4e9e-af65-74152fadb1b6@e39f7",
+      "displayName": "",
+      "id": "e39f7",
+      "name": "UnnamedTexture.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "linear",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "342bfa02-ee14-4e9e-af65-74152fadb1b6@40586"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d19c3": {
+      "importer": "gltf-material",
+      "uuid": "342bfa02-ee14-4e9e-af65-74152fadb1b6@d19c3",
+      "displayName": "",
+      "id": "d19c3",
+      "name": "palette.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "3f565": {
+      "importer": "gltf-scene",
+      "uuid": "342bfa02-ee14-4e9e-af65-74152fadb1b6@3f565",
+      "displayName": "",
+      "id": "3f565",
+      "name": "crossy_road_chicken_vox.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "uri": "342bfa02-ee14-4e9e-af65-74152fadb1b6@40586"
+      }
+    ],
+    "redirect": "342bfa02-ee14-4e9e-af65-74152fadb1b6@3f565",
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "342bfa02-ee14-4e9e-af65-74152fadb1b6@4f4f4"
+      ],
+      "skeletons": [],
+      "textures": [
+        "342bfa02-ee14-4e9e-af65-74152fadb1b6@e39f7"
+      ],
+      "materials": [
+        "342bfa02-ee14-4e9e-af65-74152fadb1b6@d19c3"
+      ],
+      "scenes": [
+        "342bfa02-ee14-4e9e-af65-74152fadb1b6@3f565"
+      ]
+    }
+  }
+}
