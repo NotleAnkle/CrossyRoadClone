@@ -1,0 +1,173 @@
+{
+  "ver": "2.3.8",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5",
+  "files": [],
+  "subMetas": {
+    "f2e17": {
+      "importer": "gltf-mesh",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@f2e17",
+      "displayName": "",
+      "id": "f2e17",
+      "name": "wheelFR.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 36
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "06a2f": {
+      "importer": "gltf-mesh",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@06a2f",
+      "displayName": "",
+      "id": "06a2f",
+      "name": "wheelBL.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "triangleCount": 36
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6d8e6": {
+      "importer": "gltf-mesh",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@6d8e6",
+      "displayName": "",
+      "id": "6d8e6",
+      "name": "wheelBR.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "triangleCount": 36
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "49dd8": {
+      "importer": "gltf-mesh",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@49dd8",
+      "displayName": "",
+      "id": "49dd8",
+      "name": "wheelFL.mesh",
+      "userData": {
+        "gltfIndex": 3,
+        "triangleCount": 36
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b39f9": {
+      "importer": "gltf-mesh",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@b39f9",
+      "displayName": "",
+      "id": "b39f9",
+      "name": "sportsCar_yellow_body.mesh",
+      "userData": {
+        "gltfIndex": 4,
+        "triangleCount": 280
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "358d0": {
+      "importer": "gltf-material",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@358d0",
+      "displayName": "",
+      "id": "358d0",
+      "name": "sportsCar_yellow.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "ec242": {
+      "importer": "gltf-scene",
+      "uuid": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@ec242",
+      "displayName": "",
+      "id": "ec242",
+      "name": "SportsCar_Yellow.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "redirect": "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@ec242",
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@f2e17",
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@06a2f",
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@6d8e6",
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@49dd8",
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@b39f9"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@358d0"
+      ],
+      "scenes": [
+        "ed08fa29-9d3d-47d4-9f41-4ffe6a67bda5@ec242"
+      ]
+    }
+  }
+}
