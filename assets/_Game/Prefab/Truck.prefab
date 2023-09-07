@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "Train Head",
+    "_name": "Truck",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Train Head",
+    "_name": "Truck",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -25,14 +25,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 15
+        "__id__": 19
       },
       {
-        "__id__": 17
+        "__id__": 21
       }
     ],
     "_prefab": {
-      "__id__": 19
+      "__id__": 23
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -86,7 +86,8 @@
     "fileId": "1dnIZeO4xdBJAdrDBPKYvt",
     "instance": {
       "__id__": 4
-    }
+    },
+    "targetOverrides": null
   },
   {
     "__type__": "cc.PrefabInstance",
@@ -111,6 +112,12 @@
       },
       {
         "__id__": 13
+      },
+      {
+        "__id__": 15
+      },
+      {
+        "__id__": 17
       }
     ],
     "removedComponents": []
@@ -217,6 +224,43 @@
     ]
   },
   {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 16
+    },
+    "propertyPath": [
+      "_shadowCastingMode"
+    ],
+    "value": 1
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "38qy8qzF5RD61aPGD4fHub"
+    ]
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 18
+    },
+    "propertyPath": [
+      "_lscale"
+    ],
+    "value": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "50X+QxcddRdoW0PW8Dbimo"
+    ]
+  },
+  {
     "__type__": "a6a6e6VO69IipysqSCo7ABA",
     "_name": "",
     "_objFlags": 0,
@@ -226,12 +270,13 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 16
+      "__id__": 20
     },
-    "limitZ": 40,
-    "speed": 30,
+    "poolType": 7,
+    "limitZ": 50,
+    "defaultSpeed": 30,
     "collider": {
-      "__id__": 17
+      "__id__": 21
     },
     "_id": ""
   },
@@ -249,7 +294,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 18
+      "__id__": 22
     },
     "_material": null,
     "_isTrigger": false,
@@ -280,6 +325,7 @@
       "__id__": 0
     },
     "fileId": "0f/4YpM3lIqaAO96nlPyZE",
+    "instance": null,
     "targetOverrides": null,
     "nestedPrefabInstanceRoots": [
       {

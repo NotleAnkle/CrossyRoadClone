@@ -2,12 +2,12 @@
   "ver": "1.1.45",
   "importer": "prefab",
   "imported": true,
-  "uuid": "bfc51a4e-3619-413e-aa33-664d5423ea06",
+  "uuid": "5b3a09c3-f4ba-443f-b91b-71e13ab2395d",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Train Head"
+    "syncNodeName": "Road"
   }
 }
