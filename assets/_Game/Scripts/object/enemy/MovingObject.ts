@@ -1,8 +1,9 @@
-import { _decorator, CCFloat, Component, Node, Vec3 } from 'cc';
+import { _decorator, CCFloat, Component, Node, tween, Vec3 } from 'cc';
+import { PoolMember } from '../../Pool/PoolMember';
 const { ccclass, property } = _decorator;
 
 @ccclass('MovingObject')
-export class MovingObject extends Component {
+export class MovingObject extends PoolMember {
 
     _curPos: Vec3 = new Vec3(0,0,0);
     _direction: number = 1;
@@ -14,15 +15,26 @@ export class MovingObject extends Component {
     @_decorator.property({
         type: CCFloat
     })
-    speed = 20;
+    defaultSpeed = 20;
+
+    private speed: number;
     
-    protected start(): void {
+    protected onLoad(): void {
+        this.node.getPosition(this._curPos);
+        this.speed = this.defaultSpeed;
+    }
+
+    onInit(direction: number, speed : number){
+        this._direction = direction;
+        if(direction == -1){
+            this.node.eulerAngles = new Vec3(0,180,0);
+        }
+        this.speed += speed;
         this.node.getPosition(this._curPos);
     }
 
-    onInit(direction: number){
-        this._direction = direction;
-        
+    public OnInit(): void {
+        this.speed = this.defaultSpeed;
     }
 
     update(deltaTime: number) {
