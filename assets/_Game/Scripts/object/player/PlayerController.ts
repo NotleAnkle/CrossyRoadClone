@@ -1,12 +1,14 @@
-import { _decorator, Component, EventTouch, Input, input, Node, Quat, tween, Vec2, Vec3} from 'cc';
+import { _decorator, BoxCollider, Component, director, EventTouch, Input, input, Node, Quat, RigidBody, Tween, tween, Vec2, Vec3} from 'cc';
 import Utilities from '../../helper/Utilities';
+import { UIManager } from '../../manager/UIManager';
+import { levelManager } from '../../manager/levelManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerController')
 export class PlayerController extends Component {
 
-    private _speed: number = 10;
-    private _maxDistance: number = 5;
+    private _speed: number = 25;
+    private _maxDistance: number = 4.8;
     private _moveDistance: number;
     private _isMoving: boolean = false;
 
@@ -16,23 +18,56 @@ export class PlayerController extends Component {
 
     private _curPos: Vec3 = new Vec3();
     // the difference in position of the current frame movement during each jump
-    private _deltaPos: Vec3 = new Vec3(0, 0, 0);
+    public _deltaPos: Vec3 = new Vec3(0, 0, 0);
     // target position of the character
     private _targetPos: Vec3 = new Vec3();
 
-    private _direction: Vec3 = new Vec3(0,0,0);
+    public _direction: Vec3 = new Vec3(1,0,0);
+
+    private isFall: boolean = false;
+
+    private frontDir: Vec3 = new Vec3(1,0,0);
     
-    start() {
+
+    @property(RigidBody)
+    private rb: RigidBody = null;
+
+    @property(BoxCollider)
+    private colider: BoxCollider = null;
+    onInit(){
+        this.scaleY(1);
+        this.node.setPosition(-25,1.5,0);
+        this._direction.set(1,0,0);
+        this.rb.linearDamping = 0.1;
+
+        this.rb.enabled = true;
+        this.colider.enabled = true;
+        
+        this._moveDistance = 0;
+        this._readyJump = true;
+    }
+
+    onStart() {        
         input.on(Input.EventType.TOUCH_START, this.onTouchBegan, this);
         input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
+
+        this.startJump();
+        this.turnTo(this._direction);
     }
 
     update(deltaTime: number) {
-        if(this._isMoving) this.move(deltaTime);
+        if(this._isMoving) this.move(deltaTime);  
+        
+        if(this.node.position.y < -10){
+            this.isFall = true;
+            this.onDeath();
+        }
+        
     }
 
+//di chuyển -----------------------------------------------------------
+
     private startJump(){
-        
         if(this._readyJump){
             this._isMoving = true;
 
@@ -42,7 +77,6 @@ export class PlayerController extends Component {
             this.node.getPosition(this._curPos);
             const moveVector = this._direction.clone();
             Vec3.add(this._targetPos, this._curPos, moveVector.multiplyScalar(this._maxDistance));
-            
           } 
     }
 
@@ -62,28 +96,39 @@ export class PlayerController extends Component {
             }
             
             Vec3.add(this._curPos, this._curPos, this._deltaPos); 
-
+            
             this.node.setPosition(this._curPos);
+            // Vec3.moveTowards(this._curPos, this._curPos, this._deltaPos, 10);
+            // this.rb.applyForce(this._deltaPos, this.node.position);
         }
         else{
             if(!this._readyJump){
-                // this.node.setPosition(this._targetPos);   
-                this._readyJump = true;
                 this._deltaPos.set(0,0,0);
                 this._isMoving = false;
+                if(this._direction.equals(this.frontDir)) levelManager.Ins.nextLine();
                 tween(this.node.scale)
                     .to(0.2, {y : 0.8})
                     .call(() => {
                         this.scaleY(1);
                     })
                     .start();
-            }         
+            }      
         }
     }
 
+    resetJump(){
+        this._readyJump = true;
+    }
+
+//-----------------------------------------------
+
+
+
+//Điều khiển nhân vật  --------------------------------------------------------
+
     private touchPosition: Vec2 = new Vec2();
 
-    private onTouchBegan(event: EventTouch): void {
+    private onTouchBegan(event: EventTouch): void {        
         // Lấy vị trí chạm tại điểm đầu tiên
         this.touchPosition = event.getLocation();
 
@@ -119,10 +164,10 @@ export class PlayerController extends Component {
                 
             }
             
-            this.startJump();
-
+            this.startJump();         
         }
     }
+//-----------------------------------------------------------------
     
     private FRONT: Vec3 = new Vec3(0,0,0);
     private SIDE: Vec3 = new Vec3(0,0,1);
@@ -132,10 +177,35 @@ export class PlayerController extends Component {
         .start();
     }
 
-    private scaleY(scale: number){
+    public scaleY(scale: number){
         tween(this.node.scale)
         .to(0.1, {y : scale})
         .start();
+    }
+
+    public goBack(v3 : Vec3){
+        this._direction.x *= -1;
+        this._direction.z *= -1;
+    }
+
+    onDeath(){
+        input.off(Input.EventType.TOUCH_START);
+        input.off(Input.EventType.TOUCH_END);
+        Tween.stopAll();
+
+        this._isMoving = false;
+        if(!this.isFall) {
+            this._curPos.y = 0.05;
+            this.node.setPosition(this._curPos);
+        }    
+
+        this.node.scale.set(1.2,.15,1.2);
+        this.rb.linearDamping = 1;
+
+        this.rb.enabled = false;
+        this.colider.enabled = false;
+
+        UIManager.Ins.onOpen(1);
     }
 }
 
