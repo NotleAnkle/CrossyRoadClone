@@ -1,5 +1,6 @@
 import { _decorator, BoxCollider, CCFloat, CCInteger, Collider, Component, director, ICollisionEvent, Node, Vec3 } from 'cc';
 import { MovingObject } from './MovingObject';
+import { PlayerController } from '../player/PlayerController';
 const { ccclass, property } = _decorator;
 
 @ccclass('Enemy')
@@ -17,8 +18,7 @@ export class Enemy extends MovingObject {
 
     private onCollision(event: ICollisionEvent) {
         if(event.otherCollider.node.layer == 1){
-
-            event.otherCollider.node.active  = false;
+           event.otherCollider.node.getComponent(PlayerController).onDeath();
         }
 
     }

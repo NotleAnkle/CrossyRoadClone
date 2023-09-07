@@ -21,4 +21,8 @@ export default class Utilities extends Component {
     public static degreeToRadian(de: number){
         return de*Math.PI/180;
     }
+
+    static random(min : number, max : number) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
 }

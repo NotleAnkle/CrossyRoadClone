@@ -1,11 +1,12 @@
 import { _decorator, BoxCollider, Component, ICollisionEvent, Node, Vec3} from 'cc';
 import { PlayerController } from '../player/PlayerController';
+import { PoolMember } from '../../Pool/PoolMember';
 const { ccclass, property } = _decorator;
 
 
 
 @ccclass('Barrier')
-export class Barrier extends Component {
+export class Barrier extends PoolMember {
 
     @property(BoxCollider)
     private collider : BoxCollider = null;
