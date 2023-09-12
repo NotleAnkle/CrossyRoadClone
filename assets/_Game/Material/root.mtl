@@ -10,9 +10,7 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {
-      "USE_NORMAL_MAP": true
-    },
+    {},
     {},
     {},
     {},
@@ -77,9 +75,12 @@
   ],
   "_props": [
     {
-      "normalMap": {
-        "__uuid__": "3740e15f-7f21-4be3-8556-5c14d54b030a@6c48a",
-        "__expectedType__": "cc.Texture2D"
+      "mainColor": {
+        "__type__": "cc.Color",
+        "r": 121,
+        "g": 69,
+        "b": 3,
+        "a": 255
       }
     },
     {},
