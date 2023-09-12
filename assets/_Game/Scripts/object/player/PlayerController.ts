@@ -2,10 +2,13 @@ import { _decorator, BoxCollider, Component, director, EventTouch, Input, input,
 import Utilities from '../../helper/Utilities';
 import { UIManager } from '../../manager/UIManager';
 import { levelManager } from '../../manager/levelManager';
+import { AudioType, SoundManager } from '../../manager/SoundManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerController')
 export class PlayerController extends Component {
+
+    private _isDead: boolean = false;
 
     private _speed: number = 25;
     private _maxDistance: number = 4.8;
@@ -27,6 +30,9 @@ export class PlayerController extends Component {
     private isFall: boolean = false;
 
     private frontDir: Vec3 = new Vec3(1,0,0);
+
+    private Cd: number = 3;
+    private curCd: number = 0;
     
 
     @property(RigidBody)
@@ -34,9 +40,11 @@ export class PlayerController extends Component {
 
     @property(BoxCollider)
     private colider: BoxCollider = null;
+    
     onInit(){
+        this._isDead = false;
         this.scaleY(1);
-        this.node.setPosition(-25,1.5,0);
+        this.node.setPosition(-25,1.5,10);
         this._direction.set(1,0,0);
         this.rb.linearDamping = 0.1;
 
@@ -63,12 +71,19 @@ export class PlayerController extends Component {
             this.onDeath();
         }
         
+        this.curCd -= deltaTime;  
+        
     }
 
 //di chuyển -----------------------------------------------------------
 
     private startJump(){
         if(this._readyJump){
+            if(this.curCd < 0){
+                SoundManager.Ins.PlayClip(AudioType.FX_Chicken);
+                this.curCd = this.Cd;
+            }
+
             this._isMoving = true;
 
             this._readyJump = false;
@@ -105,7 +120,8 @@ export class PlayerController extends Component {
             if(!this._readyJump){
                 this._deltaPos.set(0,0,0);
                 this._isMoving = false;
-                if(this._direction.equals(this.frontDir)) levelManager.Ins.nextLine();
+                if(this._direction.equals(this.frontDir))
+
                 tween(this.node.scale)
                     .to(0.2, {y : 0.8})
                     .call(() => {
@@ -189,23 +205,28 @@ export class PlayerController extends Component {
     }
 
     onDeath(){
-        input.off(Input.EventType.TOUCH_START);
-        input.off(Input.EventType.TOUCH_END);
-        Tween.stopAll();
+        if(!this._isDead){
+            SoundManager.Ins.PlayClip(AudioType.FX_Chicken_Dead)
+            this._isDead = true;
 
-        this._isMoving = false;
-        if(!this.isFall) {
-            this._curPos.y = 0.05;
-            this.node.setPosition(this._curPos);
-        }    
+            input.off(Input.EventType.TOUCH_START);
+            input.off(Input.EventType.TOUCH_END);
+            Tween.stopAll();
 
-        this.node.scale.set(1.2,.15,1.2);
-        this.rb.linearDamping = 1;
+            this._isMoving = false;
+            if(!this.isFall) {
+                this._curPos.y = 0.05;
+                this.node.setPosition(this._curPos);
+            }    
 
-        this.rb.enabled = false;
-        this.colider.enabled = false;
+            this.node.scale.set(1.2,.15,1.2);
+            this.rb.linearDamping = 1;
 
-        UIManager.Ins.onOpen(1);
+            this.rb.enabled = false;
+            this.colider.enabled = false;
+
+            levelManager.Ins.onEnd();
+        }
     }
 }
 
