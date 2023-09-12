@@ -1,5 +1,6 @@
 import { _decorator, CCFloat, Component, Node, tween, Vec3 } from 'cc';
 import { PoolMember } from '../../Pool/PoolMember';
+import Utilities from '../../helper/Utilities';
 const { ccclass, property } = _decorator;
 
 @ccclass('MovingObject')
@@ -24,12 +25,12 @@ export class MovingObject extends PoolMember {
         this.speed = this.defaultSpeed;
     }
 
-    onInit(direction: number, speed : number){
+    onInit(direction: number, deltaSpeed : number){
         this._direction = direction;
         if(direction == -1){
             this.node.eulerAngles = new Vec3(0,180,0);
         }
-        this.speed += speed;
+        this.speed += deltaSpeed;
         this.node.getPosition(this._curPos);
     }
 
