@@ -8,7 +8,6 @@ export class PoolMember extends Component {
     public poolType:  PoolType.None;
     
     public OnInit(){
-        
     }
 }
 

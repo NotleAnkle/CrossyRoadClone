@@ -96,18 +96,17 @@ class Pool {
             clone = instantiate(this.prefab.node).getComponent(PoolMember);        
             this.parentNode.addChild(clone.node);
         }
-
+        (clone as PoolMember).OnInit();
         clone.node.setWorldPosition(pos);
         clone.node.angle = angle;
         clone.node.active = true;
-
         this.activeList.push(clone);
         return clone;
     }
-
+    
     public despawn(clone: PoolMember) {
+        // clone.OnInit();
         if(clone.node.active){
-            clone.OnInit();
             clone.node.active = false;
             this.list.push(clone);
         }
