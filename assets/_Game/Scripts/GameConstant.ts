@@ -14,7 +14,9 @@ export enum PoolType {
     Car = 6,
     Truck = 7,
     Train = 8,
-    Grass = 9
+    Grass = 9,
+    Rock = 10,
+    LotusLeaf = 11
 }
 
 Enum(PoolType);

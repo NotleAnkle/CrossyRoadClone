@@ -25,4 +25,10 @@ export default class Utilities extends Component {
     static random(min : number, max : number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
       }
+    
+    static randomWithStep(min: number, max: number, step: number): number {
+        const range = (max - min) / step;
+        const randomValue = Math.floor(Math.random() * (range + 1)) * step + min;
+        return randomValue;
+    }
 }
