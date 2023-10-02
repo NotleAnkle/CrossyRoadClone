@@ -8,7 +8,9 @@ export enum AudioType {
     FX_Car_Horn = 3,
     FX_Train_Horn = 4,
     FX_Truck_Horn = 5,
-    FX_Train_Passing = 7
+    FX_Train_Passing = 7,
+    FX_Eagle = 8,
+    FX_Apple = 9
 }
 
 Enum(AudioType);
@@ -42,6 +44,9 @@ export class SoundManager extends Component {
         // this.audies[6].volume = 0.2;
         this.audies[6].loop = true;
         this.audies[6].play();
+
+        this.audies[8].volume = 1;
+        this.audies[9].volume = 1;
      }
  
      public PlayClip(type: AudioType) {

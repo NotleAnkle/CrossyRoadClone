@@ -6,6 +6,9 @@ import SimplePool from '../Pool/SimplePool';
 import { PoolType } from '../GameConstant';
 import {lineManager } from './lineManager';
 import Utilities from '../helper/Utilities';
+import { HightScoreLine } from '../object/Terrarian/HightScoreLine';
+import { GameManager, GameState } from './GameManager';
+import { Eagle } from '../object/Terrarian/Eagle';
 const { ccclass, property } = _decorator;
 
 @ccclass('LevelManager')
@@ -26,6 +29,12 @@ export class levelManager extends Component {
 
     @property(Label)
     public scoreText: Label = null;
+
+    @property(HightScoreLine)
+    hsline: HightScoreLine;
+
+    @property(Node)
+    eagle: Node
 
     protected start(): void {
         this.onInit();
@@ -51,6 +60,8 @@ export class levelManager extends Component {
 
         this.score = 0;
         this.scoreText.string = this.score.toString();
+
+        this.hsline.onInit();
 
         this.lineType = lineManager.Ins.randomLine();
         this.lineNumber = -1;
@@ -118,19 +129,29 @@ export class levelManager extends Component {
     onStart(){
         this.player.onStart();
         UIManager.Ins.onClose(0);
+        GameManager.Ins.changeState(GameState.Playing)
     }
 
     onReSet(){
         UIManager.Ins.closeAll();
         SimplePool.collectAll();
         lineManager.Ins.onInit();
+        this.player.node.active = true;
         this.player.onInit();
         this.player.onStart();
         this.onInit();
+        GameManager.Ins.changeState(GameState.Playing)
+    }
+
+    onEndByEagle(){
+        this.eagle.active= true;
+        GameManager.Ins.changeState(GameState.End)
+
     }
 
     onEnd(){
-
+        GameManager.Ins.changeState(GameState.End)
+        
         const hsc = parseInt(localStorage.getItem("score"));
         if(hsc > this.score){
             UIManager.Ins.onOpen(1);

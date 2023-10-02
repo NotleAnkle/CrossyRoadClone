@@ -42,12 +42,17 @@ export class Log extends MovingObject {
                 levelManager.Ins.increasingScore();
                 this.floatUpAndDown();
                 this.isCounted = true;
-
+                levelManager.Ins.player.resetCd();
             }
             levelManager.Ins.player.resetJump();
-            tween(event.otherCollider.node.position)
-            .to(0.05,{x: this.node.position.x})
-            .start();
+            
+            // tween(event.otherCollider.node.position)
+            // .to(0.05,{x: this.node.position.x})
+            // .start();
+
+            const pos = event.otherCollider.node.getPosition();
+            pos.x = this.node.position.x;
+            event.otherCollider.node.setPosition(pos);
         }
     }
 

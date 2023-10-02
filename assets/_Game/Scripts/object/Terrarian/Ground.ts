@@ -1,4 +1,4 @@
-import { _decorator, BoxCollider, Component, ICollisionEvent, Node, tween, Vec3 } from 'cc';
+import { _decorator, BoxCollider, CCBoolean, Component, ICollisionEvent, Node, tween, Vec3 } from 'cc';
 import { levelManager } from '../../manager/levelManager';
 import { PoolMember } from '../../Pool/PoolMember';
 import Utilities from '../../helper/Utilities';
@@ -7,6 +7,7 @@ const { ccclass, property } = _decorator;
 @ccclass('Ground')
 export class Ground extends PoolMember {
 
+    @property(CCBoolean)
     private isCounted: boolean = false;
 
     public start () {
@@ -30,6 +31,7 @@ export class Ground extends PoolMember {
             if(!this.isCounted){
                 levelManager.Ins.increasingScore();
                 this.isCounted = true;
+                levelManager.Ins.player.resetCd();
             }
             levelManager.Ins.player.resetJump();
             // tween(event.otherCollider.node.position)

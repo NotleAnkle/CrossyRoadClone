@@ -10,9 +10,7 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {
-      "USE_ALBEDO_MAP": true
-    },
+    {},
     {},
     {},
     {},
@@ -77,16 +75,16 @@
   ],
   "_props": [
     {
-      "roughness": 0,
-      "emissive": {
+      "mainColor": {
         "__type__": "cc.Color",
-        "r": 15,
-        "g": 15,
-        "b": 15,
+        "r": 107,
+        "g": 75,
+        "b": 3,
         "a": 255
       },
+      "roughness": 0,
       "mainTexture": {
-        "__uuid__": "79857f80-6871-45c7-ab59-43a8520fa6a5@6c48a",
+        "__uuid__": "46216fd7-8607-4662-a2fc-105c1134797d@6c48a",
         "__expectedType__": "cc.Texture2D"
       }
     },

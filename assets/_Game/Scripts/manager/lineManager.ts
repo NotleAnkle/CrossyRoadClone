@@ -73,11 +73,20 @@ export class lineManager extends Component {
             newLine.poolmembers.push(tree);
         }
 
+        //spawn đá
         linePos.y = 0;
         const rockNumber = Utilities.random(0,1);
         for(let i = 0; i < rockNumber; i++){
             linePos.z = Utilities.randomWithStep(-25,35,5);
             tree = SimplePool.spawn(PoolType.Rock, linePos, 0);
+            newLine.poolmembers.push(tree);
+        }
+
+        //spawn táo
+        const appleNumber = Utilities.random(0,2);
+        for(let i = 0; i < appleNumber; i++){
+            linePos.z = Utilities.randomWithStep(-25,35,3);
+            tree = SimplePool.spawn(PoolType.Apple, linePos, 0);
             newLine.poolmembers.push(tree);
         }
     }

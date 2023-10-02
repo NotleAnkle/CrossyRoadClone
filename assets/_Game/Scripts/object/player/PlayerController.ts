@@ -3,6 +3,8 @@ import Utilities from '../../helper/Utilities';
 import { UIManager } from '../../manager/UIManager';
 import { levelManager } from '../../manager/levelManager';
 import { AudioType, SoundManager } from '../../manager/SoundManager';
+import { GameManager, GameState } from '../../manager/GameManager';
+import { Warning } from './Warning';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerController')
@@ -31,7 +33,9 @@ export class PlayerController extends Component {
 
     private frontDir: Vec3 = new Vec3(1,0,0);
 
-    private Cd: number = 3;
+    private soundCd: number = 3;
+    private curSoundCd: number = 0;
+
     private curCd: number = 0;
     
 
@@ -40,11 +44,18 @@ export class PlayerController extends Component {
 
     @property(BoxCollider)
     private colider: BoxCollider = null;
+
+    @property(Warning)
+    private warning: Warning;
+
+    protected start(): void {
+        this.onInit();
+    }
     
     onInit(){
         this._isDead = false;
         this.scaleY(1);
-        this.node.setPosition(-25,1.5,10);
+        this.node.setPosition(-20,3,10);
         this._direction.set(1,0,0);
         this.rb.linearDamping = 0.1;
 
@@ -53,6 +64,8 @@ export class PlayerController extends Component {
         
         this._moveDistance = 0;
         this._readyJump = true;
+
+        this.resetCd();
     }
 
     onStart() {        
@@ -71,17 +84,24 @@ export class PlayerController extends Component {
             this.onDeath();
         }
         
-        this.curCd -= deltaTime;  
-        
+        if(GameManager.Ins.isState(GameState.Playing)){
+            this.curSoundCd -= deltaTime;  
+            this.curCd -= deltaTime;
+            // console.log(this.curCd);
+            if(this.curCd < -8) this.warning.onStart();
+            else this.warning.onPause();
+
+            if(this.curCd < -10) levelManager.Ins.onEndByEagle();
+        }
     }
 
 //di chuyển -----------------------------------------------------------
 
     private startJump(){
         if(this._readyJump){
-            if(this.curCd < 0){
+            if(this.curSoundCd < 0){
                 SoundManager.Ins.PlayClip(AudioType.FX_Chicken);
-                this.curCd = this.Cd;
+                this.curSoundCd = this.soundCd;
             }
 
             this._isMoving = true;
@@ -134,6 +154,13 @@ export class PlayerController extends Component {
 
     resetJump(){
         this._readyJump = true;
+        // if(this._direction.equals(this.frontDir)){
+        //     this.curCd = 0;
+        // }
+    }
+
+    resetCd(){
+        this.curCd = 0;
     }
 
 //-----------------------------------------------
@@ -157,20 +184,28 @@ export class PlayerController extends Component {
         if(this._readyJump){
             const endTouchPos = event.getLocation();
     
-            const touchOffset = endTouchPos.x - this.touchPosition.x;
+            const touchOffsetX = endTouchPos.x - this.touchPosition.x;
+            const touchOffsetY = endTouchPos.y - this.touchPosition.y;
+            
     
             this.scaleY(1);
     
-            if(Math.abs(touchOffset) <= 5) {
-                this._direction.set(1,0,0)
-                this.turnTo(this.FRONT);
+            if(Math.abs(touchOffsetX) <= 50) {
+                if((touchOffsetY) < -50){
+                    this._direction.set(-1,0,0);
+                    this.turnTo(this.BACK);
+                }
+                else{
+                    this._direction.set(1,0,0)
+                    this.turnTo(this.FRONT);
+                }
             }
             else {
-                const offset = (touchOffset / Math.abs(touchOffset));
+                const offset = (touchOffsetX / Math.abs(touchOffsetX));
                 this._direction.set(0,0,offset);
     
     
-                // Tính toán góc quay dựa trên touchOffset
+                // Tính toán góc quay dựa trên touchOffsetX
                 const rotationAngle = -90 * offset;
                 
                 // Lấy góc quay hiện tại của player
@@ -187,6 +222,7 @@ export class PlayerController extends Component {
     
     private FRONT: Vec3 = new Vec3(0,0,0);
     private SIDE: Vec3 = new Vec3(0,0,1);
+    private BACK: Vec3 = new Vec3(0,180,0);
     private turnTo(dir: Vec3){
         tween(this.node)
         .to(this._turnTime, { eulerAngles: (dir) })
@@ -204,14 +240,18 @@ export class PlayerController extends Component {
         this._direction.z *= -1;
     }
 
+    disableControl (){
+        input.off(Input.EventType.TOUCH_START);
+        input.off(Input.EventType.TOUCH_END);
+    }
+
     onDeath(){
         if(!this._isDead){
             SoundManager.Ins.PlayClip(AudioType.FX_Chicken_Dead)
             this._isDead = true;
 
-            input.off(Input.EventType.TOUCH_START);
-            input.off(Input.EventType.TOUCH_END);
-            Tween.stopAll();
+            this.disableControl();
+            // Tween.stopAll();
 
             this._isMoving = false;
             if(!this.isFall) {
